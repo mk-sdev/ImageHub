@@ -6,20 +6,24 @@ import { PhotoController } from './photo.controller';
 import { PhotoGateway } from './photo.gateway';
 import { R2Service } from './R2.service';
 import { AuthModule } from 'src/auth/auth.module';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     AuthModule,
     RepositoryModule,
-    ClientsModule.register([
+    ClientsModule.registerAsync([
       {
         name: 'TEST_SERVICE',
-        transport: Transport.RMQ,
-        options: {
-          urls: [process.env.AMQP_URL!],
-          queue: 'test_queue',
-          queueOptions: { durable: false },
-        },
+        inject: [ConfigService],
+        useFactory: (config: ConfigService) => ({
+          transport: Transport.RMQ,
+          options: {
+            urls: [config.get<string>('AMQP_URL')!],
+            queue: 'test_queue',
+            queueOptions: { durable: false },
+          },
+        }),
       },
     ]),
   ],
