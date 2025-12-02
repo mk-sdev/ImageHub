@@ -40,7 +40,7 @@ export class RepositoryService {
     return {};
   }
 
-  // usuwa wiele rekordów na raz
+  // deletes many records at once
   // async deleteManyByIds(ids: string[]): Promise<number> {
   //   const result = await this.photoModel.deleteMany({ _id: { $in: ids } });
   //   return result.deletedCount ?? 0;
@@ -62,7 +62,7 @@ export class RepositoryService {
     return this.photoModel.deleteOne({ key });
   }
 
-  // aktualizuje tagi w wielu rekordach
+  // updates tags in many records
   // async updateManyTags(
   //   updates: { id: string; tags: string[] }[],
   //   onProgress?: (count: number) => void,

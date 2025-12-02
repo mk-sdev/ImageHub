@@ -1,9 +1,9 @@
 import { WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server } from 'socket.io';
-// TODO: wysyłać dane tylko do konkretnego usera, a nie do wszystkich
+
 @WebSocketGateway({
   cors: {
-    origin: '*', // tylko jeśli potrzebujesz CORS
+    origin: '*',
   },
 })
 export class PhotoGateway {
@@ -12,21 +12,21 @@ export class PhotoGateway {
 
   sendUploadLog(count: number) {
     this.server.emit('photosUpdated', {
-      message: `Dodano ${count} zdjęć`,
+      message: `Uploaded ${count} images`,
       count,
     });
   }
 
   sendUpdateLog(count: number) {
     this.server.emit('photosUpdated', {
-      message: `Zaktualizowano ${count} zdjęć`,
+      message: `Updated ${count} images`,
       count,
     });
   }
 
   sendDeleteLog(count: number) {
     this.server.emit('photosDeleted', {
-      message: `Usunięto ${count} zdjęć`,
+      message: `Deleted ${count} images`,
       count,
     });
   }

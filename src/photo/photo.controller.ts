@@ -40,7 +40,7 @@ export class PhotoController {
 
     await this.photoService.uploadPhotos([{ userId, buffer }]);
 
-    return { message: 'Upload zakończony' };
+    return { message: 'Upload finished' };
   }
 
   @Get('delete/:key')
@@ -49,8 +49,8 @@ export class PhotoController {
       const result = await this.photoService.deletePhotos([key]);
       return { deleted: result };
     } catch (error) {
-      console.error('❌ Błąd przy usuwaniu zdjęcia:', error);
-      throw error; // Można też zwrócić { error: error.message }
+      console.error('Error while deleting an image:', error);
+      throw error; // { error: error.message }
     }
   }
 
@@ -70,7 +70,7 @@ export class PhotoController {
     });
 
     return {
-      message: 'Upload zakończony',
+      message: 'Upload finished',
       id: result.key,
       url: result.url,
     };
@@ -107,7 +107,7 @@ export class PhotoController {
         files: uploaded,
       };
     } catch (err) {
-      console.error('❌ Błąd podczas uploadu zdjęcia:', err);
+      console.error('Error while uploading an image:', err);
       throw err;
     }
   }
@@ -119,7 +119,7 @@ export class PhotoController {
     let updatedCount = 0;
 
     for (const update of updates) {
-      // TODO: zapisywać blokowo, a nie pojedynczo, żeby nie przeciążać bazy
+      // TODO: save one by one to avoid db overload
       const result = await this.repository.updateOne(update.id, update.tags);
       if (result.modifiedCount > 0) {
         updatedCount++;
@@ -145,8 +145,8 @@ export class PhotoController {
           this.photoGateway.sendDeleteLog(deletedCount);
         }
       } catch (err) {
-        console.error(`❌ Błąd przy usuwaniu ${key}:`, err); // <=== TO NAS INTERESUJE
-        throw err; // pozwala zwrócić błąd do `sendWithTimeout`
+        console.error(`Error while deleting ${key}:`, err);
+        throw err;
       }
     }
 

@@ -13,11 +13,9 @@ export async function sendWithTimeout<T>(
     client.send<T>(pattern, data).pipe(
       timeout(timeoutMs),
       catchError((err: Error) => {
-        console.error('🧨 Błąd z brokera w sendWithTimeout:', err);
+        console.error('Broker error in sendWithTimeout:', err);
         if (err.name === 'TimeoutError') {
-          return throwError(
-            () => new Error('Timeout: brak odpowiedzi z brokera'),
-          );
+          return throwError(() => new Error('Timeout: no broker response'));
         }
         return throwError(() => err);
       }),
@@ -26,7 +24,7 @@ export async function sendWithTimeout<T>(
 
   if (typeof result !== expectedType && expectedType !== 'object') {
     throw new Error(
-      `Nieprawidłowa odpowiedź z brokera – oczekiwano typu ${expectedType}`,
+      `Incorrect broker response - expected type: ${expectedType}`,
     );
   }
   return result;

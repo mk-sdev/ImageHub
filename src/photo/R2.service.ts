@@ -31,16 +31,16 @@ export class R2Service {
 
     try {
       await this.client.send(command);
-      this.logger.log(`✅ Usunięto plik z R2: ${key}`);
+      this.logger.log(`Image deleted from R2: ${key}`);
     } catch (error) {
-      this.logger.error(`❌ Błąd przy usuwaniu: ${key}`, error);
+      this.logger.error(`Error while deleting from R2: ${key}`, error);
       throw error;
     }
   }
 
   async uploadToR2(params: {
     bucket: string;
-    key: string; // to powinno być generowanie w tej funkcji, a nie przyjmowane jako argument
+    key: string;
     body: Buffer | Readable;
     contentType?: string;
   }): Promise<{ key: string; url: string }> {
@@ -60,10 +60,10 @@ export class R2Service {
     try {
       await this.client.send(command);
       const url = `${process.env.R2_BASE_URL}/${params.key}`;
-      this.logger.log(`✅ Przesłano do R2: ${url}`);
+      this.logger.log(`Uploaded to R2: ${url}`);
       return { key: params.key, url };
     } catch (error) {
-      this.logger.error(`❌ Błąd przesyłania do R2: ${error}`);
+      this.logger.error(`Error while uploading to R2: ${error}`);
       throw error;
     }
   }
