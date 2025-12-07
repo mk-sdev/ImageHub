@@ -3,17 +3,17 @@ provider "azurerm" {
   features {}
 }
 
-# Grupa zasobów
+# grupa zasobów
 resource "azurerm_resource_group" "rg" {
   name     = "myResourceGroup"
-  location = "polandcentral" # Twoja dozwolona lokalizacja
+  location = "polandcentral"
 }
 
 # Azure Container Registry
 resource "azurerm_container_registry" "acr" {
-  name                = "mynestappacr"   # musi być globalnie unikalna
+  name                = "mynestappacr"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  sku                 = "Standard"       # Basic, Standard lub Premium
-  admin_enabled       = true              # ułatwia logowanie (do testów)
+  sku                 = "Basic"
+  admin_enabled       = true
 }
