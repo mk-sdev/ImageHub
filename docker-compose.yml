@@ -10,10 +10,8 @@ services:
     depends_on:
       - mongo
       - rabbitmq
-    environment:
-      MONGO_URL: "mongodb://mongo:27017/mydb"
-      RABBITMQ_URL: "amqp://rabbitmq"
-
+    env_file:
+      - .env
   mongo:
     image: mongo:6.0
     volumes:
