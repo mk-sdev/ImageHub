@@ -3,12 +3,12 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = "myResourceGroup"
+  name     = "rg-imagehub"
   location = "polandcentral"
 }
 
 resource "azurerm_container_registry" "acr" {
-  name                = "mynestappacr"
+  name                = "imagehubacr"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   sku                 = "Basic"
@@ -16,7 +16,7 @@ resource "azurerm_container_registry" "acr" {
 }
 
 resource "azurerm_container_group" "app" {
-  name                = "nest-app-group"
+  name                = "imagehub-group"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   os_type             = "Linux"

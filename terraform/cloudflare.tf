@@ -13,6 +13,6 @@ provider "cloudflare" {
 
 resource "cloudflare_r2_bucket" "images_bucket" {
   account_id = var.cloudflare_account_id
-  name       = "my-images-bucket"
+  name       = "imagehub-bucket"
   location   = "WEUR"
 }
