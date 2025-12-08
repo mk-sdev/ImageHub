@@ -1,15 +1,12 @@
-# Provider Azure
 provider "azurerm" {
   features {}
 }
 
-# grupa zasobów
 resource "azurerm_resource_group" "rg" {
   name     = "myResourceGroup"
   location = "polandcentral"
 }
 
-# Azure Container Registry
 resource "azurerm_container_registry" "acr" {
   name                = "mynestappacr"
   resource_group_name = azurerm_resource_group.rg.name

@@ -56,5 +56,7 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # terraform
-/.terraform
+.terraform
 terraform.tfstate
+terraform.tfstate.*
+terraform.tfvars
